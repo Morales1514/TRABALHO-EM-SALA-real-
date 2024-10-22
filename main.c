@@ -1,30 +1,56 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
 
-void senhaGerada(int tamanho, char *senha, const char *caracteres){
-  for(int i = 0; i < tamanho; i++){
-    int indice = rand() % strlen(caracteres);
-    senha[i] = caracteres[indice];
-  }
-  senha[tamanho] = '\0';
+// função da opção 1
+
+void transformandoFC(double *resultado, double *t1) {
+  (*resultado) = 1.8 * (*t1) + 32;
+  printf("O valor em Fahrenheit é: %.2lf\n", (*resultado));
 }
 
-int main() {
-  int tamanho;
-  char senha[100];
-  char caracteres[] = "qwertyuioplkjhgfdsazxcvbnmQAWSEDRFGTGYHUJIKOLPZXCVBNM!@#$%*12345678790";
+//função da opção 2
 
-  srand(time(NULL));
+void transformandoCF(double *resultado, double *t1){
+  (*resultado) = (*t1 - 32) / 1.8;
+  printf("O valor em Celsius é: %.2lf\n", (*resultado));
+}
+int main(void) {
+  int opcao;
+  // Temperatura 1 e temperatura 2
+  double t1, t2;
 
-  printf("--- BEM-VINDO AO GERADOR DE SENHAS ---\n");
+  printf("Escolha o tipo da conversao \n");
+  printf("1 - F -> C \n");
+  printf("2 - C -> F \n");
+  printf("3 - Sair\n");
 
-  printf("Digite o tamanho da sua senha: ");
-  scanf("%d", &tamanho);
+  do {
+    printf("escolha uma opcao: \n");
+    scanf("%d", &opcao);
+    getchar();
+    switch (opcao) {
+    case 1:
+      printf("Transformando F -> C \n");
+      printf("Digite a temperatura: \n");
+      scanf("%lf", &t1);
+      double resultado = 0;
+      transformandoFC(&resultado, &t1);
+      break;
 
-  senhaGerada(tamanho, senha, caracteres);
+    case 2:
+      printf("Transformando C -> F \n");
+      printf("Digite a temperatura: \n");
+      scanf("%lf", &t1);
+      double resultado2 = 0;
+      transformandoCF(&resultado2, &t1);
+      break;
 
-  printf("A sua senha gerada foi: %s",  senha);
+    case 3:
+      printf("Saindo...");
+
+    default:
+      printf("Opcao invalida \n");
+      break;
+    }
+  } while (opcao != 3);
   return 0;
 }
